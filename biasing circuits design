@@ -1,0 +1,154 @@
+import numpy as n
+a=[]
+b=[1,1.1,1.2,1.3,1.5,1.6,1.8,2,2.2,2.4,2.7,3,3.3,3.6,3.9,4.3,4.7,5.1,5.6,6.2,6.8,7.5,8.2,9.1]
+a.append(b)
+for i in range(6):
+    c=[]
+    for j in b:
+       c.append(j*10) 
+    a.append(c)
+    b=c
+a=n.array(a)
+vbe=0.7
+def fb(vcc,beta):
+    vceq=float(input("Enter the value of Vce(q) : "))
+    icq=float(input("Enter the value of Ic(q) : "))
+    ib=icq/beta
+    rb=(vcc-vbe)/ib
+    b=[max(a[a<=rb]),min(a[a>rb])]
+    c=[rb-b[0],b[1]-rb]
+    d=min(c)
+    if(d==c[0]):
+        rb=b[0]
+    else:
+        rb=b[1]
+    rc=(vcc-vceq)/icq
+    b=[max(a[a<=rc]),min(a[a>rc])]
+    c=[rc-b[0],b[1]-rc]
+    d=min(c)
+    if(d==c[0]):
+        rc=b[0]
+    else:
+        rc=b[1]
+    print("Value of Rc is : ",rc)
+    print("Value of Rb is : ",rb)
+    ib=(vcc-vbe)/rb
+    ic=beta*ib
+    vce=vcc-ic*rc
+    dic=((ic-icq)*100)/ic
+    dvce=((vce-vceq)*100)/vce
+    print("Percentage error in Ic is : ",dic)
+    print("Percentage error in Vce is : ",dvce)
+def fbe(vcc,beta):
+    vceq=float(input("Enter the value of Vce(q) : "))
+    icq=float(input("Enter the value of Ic(q) : "))
+    ve=vcc/10
+    ib=icq/beta
+    ie=(beta+1)*ib
+    re=ve/ie
+    b=[max(a[a<=re]),min(a[a>re])]
+    c=[re-b[0],b[1]-re]
+    d=min(c)
+    if(d==c[0]):
+        re=b[0]
+    else:
+        re=b[1]
+    rb=(vcc-vbe-ve)/ib
+    b=[max(a[a<=rb]),min(a[a>rb])]
+    c=[rb-b[0],b[1]-rb]
+    d=min(c)
+    if(d==c[0]):
+        rb=b[0]
+    else:
+        rb=b[1]
+    rc=(vcc-vceq-ve)/icq
+    b=[max(a[a<=rc]),min(a[a>rc])]
+    c=[rc-b[0],b[1]-rc]
+    d=min(c)
+    if(d==c[0]):
+        rc=b[0]
+    else:
+        rc=b[1]
+    ib=(vcc-vbe)/(rb+(beta+1)*re)
+    ic=beta*ib
+    ie=(beta+1)*ib
+    vce=vcc-ic*rc-ie*re
+    print("Value of Rc is : ",rc)
+    print("Value of Re is : ",re)
+    print("Value of Rb is : ",rb)
+    dic=((ic-icq)*100)/ic
+    dvce=((vce-vceq)*100)/vce
+    print("Percentage error in Ic is : ",dic)
+    print("Percentage error in Vce is : ",dvce)
+def pd(vcc,beta):
+    vceq=float(input("Enter the value of Vce(q) : "))
+    icq=float(input("Enter the value of Ic(q) : "))
+    ve=vcc/10
+    ib=icq/beta
+    ie=(beta+1)*ib
+    re=ve/ie
+    b=[max(a[a<=re]),min(a[a>re])]
+    c=[re-b[0],b[1]-re]
+    d=min(c)
+    if(d==c[0]):
+        re=b[0]
+    else:
+        re=b[1]   
+    rc=(vcc-vceq-ve)/icq
+    b=[max(a[a<=rc]),min(a[a>rc])]
+    c=[rc-b[0],b[1]-rc]
+    d=min(c)
+    if(d==c[0]):
+        rc=b[0]
+    else:
+        rc=b[1]
+    r2=(beta*re)/10
+    b=[max(a[a<=r2]),min(a[a>r2])]
+    c=[r2-b[0],b[1]-r2]
+    d=min(c)
+    if(d==c[0]):
+        r2=b[0]
+    else:
+        r2=b[1]
+    r1=((vcc*r2)/(ve+vbe))-r2
+    b=[max(a[a<=r1]),min(a[a>r1])]
+    c=[r1-b[0],b[1]-r1]
+    d=min(c)
+    if(d==c[0]):
+        r1=b[0]
+    else:
+        r1=b[1]
+    rb=(r1*r2)/(r1+r2)
+    vth=(vcc*r2)/(r1+r2)
+    ib=(vth-vbe)/(rb+(beta+1)*re)
+    ic=beta*ib
+    ie=(beta+1)*ib
+    vce=vcc-ic*rc-ie*re
+    print("Value of Rc is : ",rc)
+    print("Value of Re is : ",re)
+    print("Value of R1 is : ",r1)
+    print("Value of R2 is : ",r2)
+    dic=((ic-icq)*100)/ic
+    dvce=((vce-vceq)*100)/vce
+    print("Percentage error in Ic is : ",dic)
+    print("Percentage error in Vce is : ",dvce)
+print("Enter your choice for designing the following circuit")
+print("1. Fixed bias")
+print("2. Fixed bias with emitter resistor")
+print("3. Potential divider ")
+ch=int(input("Enter choice : "))
+vcc=float(input("Enter the value of Vcc : "))
+beta=float(input("Enter the value of beta : "))
+if(ch==1):
+    fb(vcc,beta)
+if(ch==2):
+    fbe(vcc,beta)
+if(ch==3):
+    pd(vcc,beta)
+
+    
+
+
+
+
+
