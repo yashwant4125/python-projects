@@ -1,0 +1,38 @@
+#A truth and dare game
+import random as r
+d=[]
+print("I am a program")
+print("I don't have any dares to give you so, enter some dares you would like to be given ")
+print("I also don't have an intellect to judge you based on your truths so, it's upon you to tell me a real truth")
+n=int(input("How many dares would you like to enter : "))
+for i in range(n):
+    print("Enter dare %s : "%(i+1),end='')
+    d1=input()
+    d.append(d1)
+t=[]
+def game():
+    print("Game is starting.....")
+    c=['Truth','Dare']
+    ch=r.choice(c)
+    if(ch=='Truth'):
+        print("Truth has come up so")
+        t.append(input("Tell me a Truth : "))
+    if(ch=='Dare'):
+        print("Dare has come up so")
+        print("I dare you to ",r.choice(d))
+        print("Will you do this")
+        mood=input("Enter yes or no : ")
+        if(mood=='yes'):
+            print("Great you stand your ground ")
+        if(mood=='no'):
+            print("Disappointed!!!")
+    again=input("Will you play again? (yes/no) : ")
+    if(again=="yes"):
+        game()
+    else:
+        print("You told me these truths")
+        for i in t:
+            print(i)
+        print("Exiting game.....")
+game()
+
