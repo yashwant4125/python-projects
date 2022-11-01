@@ -1,0 +1,73 @@
+vbe=0.7 #fixed base to emitter voltage
+def fb(vcc,beta): 
+    rc=float(input("Enter the value of Rc : "))
+    rb=float(input("Enter the value of Rb : "))
+    ib=(vcc-vbe)/rb
+    ic=(beta+1)*ib
+    vce=vcc-ic*rc
+    print("Value of Ic is : ",ic)
+    print("Value of Vce is : ",vce)
+def fbe(vcc,beta):
+    rc=float(input("Enter the value of Rc : "))
+    rb=float(input("Enter the value of Rb : "))
+    re=float(input("Enter the value of Re : "))
+    ib=(vcc-vbe)/(rb+(beta+1)*re)
+    ic=beta*ib
+    ie=(beta+1)*ib
+    vce=vcc-ic*rc-ie*re
+    print("Value of Ic is : ",ic)
+    print("Value of Vce is : ",vce)
+def pdth(vcc,beta):
+    rc=float(input("Enter the value of Rc : "))
+    re=float(input("Enter the value of Re : "))
+    r1=float(input("Enter the value of R1 : "))
+    r2=float(input("Enter the value of R2 : "))
+    rb=(r1*r2)/(r1+r2)
+    vth=(vcc*r2)/(r1+r2)
+    ib=(vth-vbe)/(rb+(beta+1)*re)
+    ic=beta*ib
+    ie=(beta+1)*ib
+    vce=vcc-ic*rc-ie*re
+    print("Value of Ic is : ",ic)
+    print("Value of Vce is : ",vce)
+def pdap(vcc,beta):
+    rc=float(input("Enter the value of Rc : "))
+    re=float(input("Enter the value of Re : "))
+    r1=float(input("Enter the value of R1 : "))
+    r2=float(input("Enter the value of R2 : "))
+    if((beta*re)>=(10*r2)):
+        vb=(vcc*r2)/(r1+r2)
+        ib=(vcc-vb)/(rb)
+        ic=beta*ib
+        ie=(beta+1)*ib
+        vce=vcc-ic*rc-ie*re
+        print("Value of Ic is : ",ic)
+        print("Value of Vce is : ",vce)
+    else:
+        print("Approximation not possible ")
+def option():
+    print("Enter your choice for analysing the following circuit")
+    print("1. Fixed bias")
+    print("2. Fixed bias with emitter resistor")
+    print("3. Potential dividor by thevenin's method")
+    print("4. Potential dividor by approximation")
+    ch=int(input("Enter choice : "))
+    vcc=float(input("Enter the value of Vcc : "))
+    beta=float(input("Enter the value of beta : "))
+    if(ch==1):
+        fb(vcc,beta)
+    if(ch==2):
+        fbe(vcc,beta)
+    if(ch==3):
+        pdth(vcc,beta)
+    if(ch==4):
+        pdap(vcc,beta)
+    o=input("Do you want to get options again enter(y/n) : ")
+    if(o=='y'):
+        option()
+option()
+
+    
+
+
+
